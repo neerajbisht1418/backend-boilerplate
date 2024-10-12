@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const { NODE_ENV, PORT } = require('./config/environment');
+const { NODE_ENV, PORT, APP_VERSION } = require('./config/environment');
 const errorHandler = require('./middlewares/errorHandler');
 const routes = require('./routes');
 const connectDB = require('./db/mongoose');
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(morgan(NODE_ENV === 'production' ? 'combined' : 'dev'));
 
 // Routes
-app.use('/api', routes);
+app.use(`/api/${APP_VERSION}`, routes);
 
 // Error handling
 app.use(errorHandler);
